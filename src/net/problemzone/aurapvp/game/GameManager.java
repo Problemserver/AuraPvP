@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.ScoreboardManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +19,6 @@ public class GameManager {
     private static final int FINAL_LOBBY_TIME = 20;
     private static final int MIN_PLAYERS = 3;
 
-    private final ScoreboardHandler scoreboardManager;
     private final PlayerManager playerManager;
 
     private List<Player> possiblePlayers;
@@ -28,10 +26,10 @@ public class GameManager {
 
     private GameState gameState = GameState.WAITING;
 
-    public GameManager(ScoreboardManager scoreboardManager, PlayerManager playerManager) {
-        this.scoreboardManager = (ScoreboardHandler) scoreboardManager;
+    public GameManager(ScoreboardHandler scoreboardManager, PlayerManager playerManager) {
         this.playerManager = playerManager;
     }
+
 
     public void initiateGame() {
         initiateGame(STARTING_LOBBY_TIME);

@@ -3,3 +3,12 @@ version: 1.0
 name: AuraPvP
 authors: [Hantill]
 api-version: 1.13
+commands:
+  start:
+    description: Start the Game
+    usage: /start [time >= 5]
+    permission: aurapvp.command.start
+    cancel:
+      description: Cancels the Countdown
+      usage: /cancel
+      permission: aurapvp.command.cancel

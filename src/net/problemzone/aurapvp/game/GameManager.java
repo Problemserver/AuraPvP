@@ -1,7 +1,7 @@
 package net.problemzone.aurapvp.game;
 
+
 import net.problemzone.aurapvp.Main;
-import net.problemzone.aurapvp.game.scoreboard.ScoreboardHandler;
 import net.problemzone.aurapvp.util.Countdown;
 import net.problemzone.aurapvp.util.Language;
 import org.bukkit.Bukkit;
@@ -9,8 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class GameManager {
 
@@ -19,17 +18,18 @@ public class GameManager {
     private static final int FINAL_LOBBY_TIME = 20;
     private static final int MIN_PLAYERS = 3;
 
+
     private final PlayerManager playerManager;
+
 
     private List<Player> possiblePlayers;
     private BukkitTask currentScheduledTask;
 
     private GameState gameState = GameState.WAITING;
 
-    public GameManager(ScoreboardHandler scoreboardManager, PlayerManager playerManager) {
+    public GameManager(PlayerManager playerManager) {
         this.playerManager = playerManager;
     }
-
 
     public void initiateGame() {
         initiateGame(STARTING_LOBBY_TIME);
@@ -76,7 +76,7 @@ public class GameManager {
         possiblePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         //Teleport to Map
-        possiblePlayers.forEach(playerManager::initiateGame);
+        possiblePlayers.forEach(playerManager::intiiateGame);
 
         gameState = GameState.WARM_UP;
 
@@ -90,7 +90,6 @@ public class GameManager {
                 startGame();
             }
         }.runTaskLater(Main.getJavaPlugin(), WARM_UP_TIME * 20L);
-
     }
 
     //Assigns Roles and starts the Game
@@ -102,14 +101,9 @@ public class GameManager {
             Bukkit.broadcastMessage(Language.NOT_ENOUGH_PLAYERS.getFormattedText());
             possiblePlayers.forEach(playerManager::wrapUpGame);
             return;
-        };
+        }
 
         gameState = GameState.RUNNING;
-    }
-
-    //Public getter methods
-    public GameState getGameState() {
-        return gameState;
     }
 
     //Winning Related Methods
@@ -122,14 +116,16 @@ public class GameManager {
 
     }
 
-    private void finishGame(String winner) {
+    private void finishGame() {
         gameState = GameState.FINISHED;
 
         //Teleport to Lobby
         Bukkit.getOnlinePlayers().forEach(playerManager::wrapUpGame);
 
         //Announce Winner
-        Bukkit.broadcastMessage(String.format(Language.WIN_MESSAGE.getFormattedText(), winner));
+        Bukkit.broadcastMessage(String.format(Language.WIN_MESSAGE.getFormattedText()));
+        Bukkit.getOnlinePlayers().forEach(player -> playerManager.announceWin(player));
+
         Countdown.createChatCountdown(FINAL_LOBBY_TIME * 20, Language.SERVER_CLOSE);
 
         new BukkitRunnable() {
@@ -141,4 +137,8 @@ public class GameManager {
 
     }
 
+    //Public getter methods
+    public GameState getGameState() {
+        return gameState;
+    }
 }

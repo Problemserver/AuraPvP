@@ -12,7 +12,7 @@ public class SpectatorManager {
 
     private final List<Player> spectators = new ArrayList<>();
 
-    public void setPlayerAsSpectator(Player player) {
+    public void setPlayerAsSpectator(Player player){
 
         spectators.add(player);
 
@@ -29,7 +29,7 @@ public class SpectatorManager {
         player.setFlying(true);
     }
 
-    public void removePlayerFromSpectator(Player player) {
+    public void removePlayerFromSpectator(Player player){
         spectators.remove(player);
         player.setPlayerListName(player.getName());
         player.setInvisible(false);
@@ -37,7 +37,8 @@ public class SpectatorManager {
         player.setFlying(false);
     }
 
-    public boolean isSpectator(Player player) {
+    public boolean isSpectator(Player player){
         return spectators.contains(player);
     }
+
 }

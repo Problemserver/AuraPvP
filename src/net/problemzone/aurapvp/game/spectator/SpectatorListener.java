@@ -1,5 +1,6 @@
 package net.problemzone.aurapvp.game.spectator;
 
+
 import net.problemzone.aurapvp.Main;
 import net.problemzone.aurapvp.game.GameManager;
 import net.problemzone.aurapvp.game.GameState;
@@ -25,8 +26,8 @@ public class SpectatorListener implements Listener {
     }
 
     @EventHandler
-    public void onSpectatorJoin(PlayerJoinEvent e) {
-        if (gameManager.getGameState() != GameState.WAITING && gameManager.getGameState() != GameState.STARTING) {
+    public void onSpectatorJoin(PlayerJoinEvent e){
+        if(gameManager.getGameState() != GameState.WAITING && gameManager.getGameState() != GameState.STARTING){
             spectatorManager.setPlayerAsSpectator(e.getPlayer());
         }
     }
@@ -45,12 +46,12 @@ public class SpectatorListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerDeathDamage(EntityDamageEvent e) {
-        if (!(e.getEntity() instanceof Player)) return;
+    public void onPlayerDeathDamage(EntityDamageEvent e){
+        if(!(e.getEntity() instanceof Player)) return;
 
         Player player = (Player) e.getEntity();
 
-        if (player.getHealth() - e.getFinalDamage() <= 0) {
+        if(player.getHealth() - e.getFinalDamage() <= 0){
             e.setCancelled(true);
             spectatorManager.setPlayerAsSpectator(player);
             gameManager.removePlayer(player);
@@ -59,25 +60,21 @@ public class SpectatorListener implements Listener {
     }
 
     @EventHandler
-    public void onSpectatorDamage(EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player && spectatorManager.isSpectator((Player) e.getDamager()))
-            e.setCancelled(true);
+    public void onSpectatorDamage(EntityDamageByEntityEvent e){
+        if(e.getDamager() instanceof Player && spectatorManager.isSpectator((Player)e.getDamager())) e.setCancelled(true);
 
-        if (e.getEntity() instanceof Player && spectatorManager.isSpectator((Player) e.getEntity()))
-            e.setCancelled(true);
+        if(e.getEntity() instanceof Player && spectatorManager.isSpectator((Player)e.getEntity())) e.setCancelled(true);
     }
 
     @EventHandler
-    public void onSpectatorArrowPickup(PlayerPickupArrowEvent e) {
-        if (spectatorManager.isSpectator(e.getPlayer())) e.setCancelled(true);
+    public void onSpectatorArrowPickup(PlayerPickupArrowEvent e){
+        if(spectatorManager.isSpectator(e.getPlayer())) e.setCancelled(true);
     }
 
     @EventHandler
-    public void onSpectatorItemPickup(EntityPickupItemEvent e) {
-        if (e.getEntity() instanceof Player && spectatorManager.isSpectator((Player) e.getEntity()))
-            e.setCancelled(true);
+    public void onSpectatorItemPickup(EntityPickupItemEvent e){
+        if(e.getEntity() instanceof Player && spectatorManager.isSpectator((Player) e.getEntity())) e.setCancelled(true);
     }
-
 
 
 }

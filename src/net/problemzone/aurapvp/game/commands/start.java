@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 
 public class start implements CommandExecutor {
 
-    private final static int START_COMMAND_TIME = 10;
+    private final static int START_COMMAND_TIME = 15;
 
     private final GameManager gameManager;
 

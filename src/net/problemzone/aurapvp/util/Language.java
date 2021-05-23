@@ -16,7 +16,9 @@ public enum Language {
     PLAYER_DEATH_BY_PLAYER(ChatColor.GRAY + "Der Spieler " + ChatColor.GOLD + "%s " + ChatColor.GRAY + "wurde von " + ChatColor.GOLD + "%s " + ChatColor.GRAY + "getötet!"),
     CURRENT_PLAYERS(ChatColor.GRAY + "Noch " + ChatColor.GOLD + "%s " + ChatColor.GRAY + "sind am leben."),
     PLAYER_DEATH(ChatColor.GRAY + "Der Spieler " + ChatColor.GOLD + "%s " + ChatColor.GRAY + "ist gestorben."),
-    WIN_MESSAGE(ChatColor.GOLD + "%s " + ChatColor.GREEN + "hat gewonnen!");
+    WIN_MESSAGE(ChatColor.GOLD + "%s " + ChatColor.GREEN + "hat gewonnen!"),
+    PLAYERS_NEEDED("Es werden noch " + ChatColor.RED + "%d" + ChatColor.GRAY + " weitere Spieler benötigt!"),
+    PLAYERS_NEEDED_ONE("Es wird noch " + ChatColor.RED + "1" + ChatColor.GRAY + " weiterer Spieler benötigt!");
 
     private static final String SYSTEM_PREFIX = ChatColor.LIGHT_PURPLE + "Aura " + ChatColor.DARK_GRAY + "» " + ChatColor.GRAY + "";
 

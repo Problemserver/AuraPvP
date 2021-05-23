@@ -11,12 +11,14 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
+import static net.problemzone.aurapvp.game.items.PlayerInventory.equip;
+
 public class GameManager {
 
     private static final int STARTING_LOBBY_TIME = 60;
     private static final int WARM_UP_TIME = 30;
     private static final int FINAL_LOBBY_TIME = 20;
-    private static final int MIN_PLAYERS = 3;
+    private static final int MIN_PLAYERS = 2;
 
 
     private final PlayerManager playerManager;
@@ -80,6 +82,7 @@ public class GameManager {
 
         gameState = GameState.WARM_UP;
 
+
         //Initialize Countdown
         Countdown.createChatCountdown(WARM_UP_TIME, Language.WARM_UP);
 
@@ -92,7 +95,7 @@ public class GameManager {
         }.runTaskLater(Main.getJavaPlugin(), WARM_UP_TIME * 20L);
     }
 
-    //Assigns Roles and starts the Game
+    //Starts the Game
     private void startGame() {
 
         if (possiblePlayers.size() < MIN_PLAYERS) {
@@ -124,7 +127,7 @@ public class GameManager {
 
         //Announce Winner
         Bukkit.broadcastMessage(String.format(Language.WIN_MESSAGE.getFormattedText()));
-        Bukkit.getOnlinePlayers().forEach(player -> playerManager.announceWin(player));
+        Bukkit.getOnlinePlayers().forEach(playerManager::announceWin);
 
         Countdown.createChatCountdown(FINAL_LOBBY_TIME * 20, Language.SERVER_CLOSE);
 

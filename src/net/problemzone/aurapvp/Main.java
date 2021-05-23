@@ -5,6 +5,8 @@ import net.problemzone.aurapvp.game.GameManager;
 import net.problemzone.aurapvp.game.PlayerManager;
 import net.problemzone.aurapvp.game.commands.cancel;
 import net.problemzone.aurapvp.game.commands.start;
+import net.problemzone.aurapvp.game.listener.GameListener;
+import net.problemzone.aurapvp.game.spectator.SpectatorListener;
 import net.problemzone.aurapvp.game.spectator.SpectatorManager;
 import org.bukkit.WorldCreator;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,6 +48,8 @@ public class Main extends JavaPlugin {
 
     private void registerListeners() {
         //Event Listeners
+        getServer().getPluginManager().registerEvents(new SpectatorListener(spectatorManager, gameManager), this);
+        getServer().getPluginManager().registerEvents(new GameListener(gameManager), this);
     }
 
     private void registerCommands() {

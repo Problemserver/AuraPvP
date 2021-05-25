@@ -3,6 +3,7 @@ package net.problemzone.aurapvp;
 
 import net.problemzone.aurapvp.game.GameManager;
 import net.problemzone.aurapvp.game.PlayerManager;
+import net.problemzone.aurapvp.game.WorldProtectionListener;
 import net.problemzone.aurapvp.game.commands.cancel;
 import net.problemzone.aurapvp.game.commands.start;
 import net.problemzone.aurapvp.game.listener.GameListener;
@@ -50,6 +51,7 @@ public class Main extends JavaPlugin {
         //Event Listeners
         getServer().getPluginManager().registerEvents(new SpectatorListener(spectatorManager, gameManager), this);
         getServer().getPluginManager().registerEvents(new GameListener(gameManager), this);
+        getServer().getPluginManager().registerEvents(new WorldProtectionListener(), this);
     }
 
     private void registerCommands() {

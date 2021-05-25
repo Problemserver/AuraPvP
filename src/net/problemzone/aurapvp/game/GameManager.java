@@ -11,8 +11,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.*;
 
-import static net.problemzone.aurapvp.game.items.PlayerInventory.equip;
-
 public class GameManager {
 
     private static final int STARTING_LOBBY_TIME = 60;
@@ -75,6 +73,8 @@ public class GameManager {
             return;
         }
 
+        if(Bukkit.getPluginManager().getPlugin("Lobbibi") != null) Bukkit.getPluginManager().disablePlugin(Objects.requireNonNull(Bukkit.getPluginManager().getPlugin("Lobbibi")));
+
         possiblePlayers = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         //Teleport to Map
@@ -116,7 +116,9 @@ public class GameManager {
     }
 
     private void checkForWin() {
-
+        if(possiblePlayers.size() == 1){
+            finishGame();
+        }
     }
 
     private void finishGame() {
@@ -126,7 +128,7 @@ public class GameManager {
         Bukkit.getOnlinePlayers().forEach(playerManager::wrapUpGame);
 
         //Announce Winner
-        Bukkit.broadcastMessage(String.format(Language.WIN_MESSAGE.getFormattedText()));
+        Bukkit.broadcastMessage(String.format(Language.WIN_MESSAGE.getText()));
         Bukkit.getOnlinePlayers().forEach(playerManager::announceWin);
 
         Countdown.createChatCountdown(FINAL_LOBBY_TIME * 20, Language.SERVER_CLOSE);

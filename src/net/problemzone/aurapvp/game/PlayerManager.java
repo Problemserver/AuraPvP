@@ -56,8 +56,8 @@ public class PlayerManager {
         assert rodMeta != null;
         rodMeta.setUnbreakable(true);
 
-        player.getInventory().setItem(1, stock);
-        player.getInventory().setItem(2, rod);
+        player.getInventory().setItem(0, stock);
+        player.getInventory().setItem(1, rod);
         player.getInventory().addItem(new ItemStack(Material.SNOWBALL, 16));
         player.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 16389));
         player.getInventory().addItem(new ItemStack(Material.POTION, 1, (short) 16386));
